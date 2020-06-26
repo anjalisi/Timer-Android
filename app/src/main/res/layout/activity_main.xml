@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily="monospace"
-        android:text="0:30"
+        android:text="00:30"
         android:textColor="#FFFFFF"
         android:textSize="45sp"
         android:textStyle="bold" />
