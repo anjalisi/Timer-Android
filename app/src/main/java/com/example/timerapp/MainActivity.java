@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -14,8 +15,17 @@ public class MainActivity extends AppCompatActivity {
     SeekBar timerSeekBar;
     TextView timerTextView;
     Boolean counterIsActive= false;
-
-
+    Button controllerButton;
+    CountDownTimer countDownTimer;
+    public void resetTimer()
+    {
+        timerTextView.setText("00:30");
+        timerSeekBar.setProgress(30);
+        countDownTimer.cancel();
+        controllerButton.setText("GO!");
+        timerSeekBar.setEnabled(true);
+        counterIsActive=false;
+    }
     public void updateTimer(int secondsLeft)
     {
         int mins= (int)secondsLeft/60;
@@ -33,24 +43,32 @@ public class MainActivity extends AppCompatActivity {
         timerTextView.setText(minsStr+":"+secondStr);
 
     }
-    public void controlTimer(View view)
-    {
-        Log.i("Button Pressed : ","Pressed");
-        new CountDownTimer(timerSeekBar.getProgress()*1000+100,1000)
-        {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                updateTimer((int)millisUntilFinished/1000);
-            }
+    public void controlTimer(View view) {
+        if (counterIsActive == false) {
+            counterIsActive = true;
+            timerSeekBar.setEnabled(false); //disable the seekbar while the timer is going on
+            controllerButton.setText("STOP");
+            Log.i("Button Pressed : ", "Pressed");
+            countDownTimer= new CountDownTimer(timerSeekBar.getProgress() * 1000 + 100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimer((int) millisUntilFinished / 1000);
+                }
 
-            @Override
-            public void onFinish() {
-                timerTextView.setText("00:00");
-                MediaPlayer mediaPlayer= MediaPlayer.create(getApplicationContext(),R.raw.airhorn);
-                mediaPlayer.start();
-                Log.i("Finished","done");
-            }
-        }.start();
+                @Override
+                public void onFinish() {
+                    timerTextView.setText("00:00");
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.airhorn);
+                    mediaPlayer.start();
+                    Log.i("Finished", "done");
+                    resetTimer();
+                }
+            }.start();
+        }
+        else
+        {
+            resetTimer();
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         timerSeekBar= (SeekBar)findViewById(R.id.timerSeekBar);
         timerTextView=(TextView)findViewById(R.id.timerTextView);
+        controllerButton=(Button)findViewById(R.id.controllerButton);
         timerSeekBar.setMax(1200);
         timerSeekBar.setProgress(30);
 
