@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#262424"
+    tools:context=".MainActivity">
+
+    <SeekBar
+        android:id="@+id/timerSeekBar"
+        android:layout_width="fill_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="5dp"
+        android:background="#030303"
+        android:backgroundTint="#50E1E4"
+        android:progressBackgroundTint="@android:color/background_dark" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/egg" />
+
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="monospace"
+        android:text="0:30"
+        android:textColor="#FFFFFF"
+        android:textSize="45sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/controllerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timerTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:background="#50E1E4"
+        android:fontFamily="monospace"
+        android:maxWidth="140dp"
+        android:onClick="controlTimer"
+        android:text="GO!"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+</RelativeLayout>
